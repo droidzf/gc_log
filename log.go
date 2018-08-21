@@ -2,6 +2,7 @@ package log
 
 import (
 	"fmt"
+	"log"
 	"runtime"
 	"strconv"
 	"strings"
@@ -28,17 +29,18 @@ func Debug(arg ...interface{}) {
 }
 
 func Warn(arg ...interface{}) {
-	if isDEBUG {
-		s := buildString(" [WARN]  ", arg)
-		fmt.Printf("%c[1;33m%s%c[0m\n", 0x1B, s, 0x1B)
-	}
+	s := buildString(" [WARN]  ", arg)
+	fmt.Printf("%c[1;33m%s%c[0m\n", 0x1B, s, 0x1B)
 }
 
 func Error(arg ...interface{}) {
-	if isDEBUG {
-		s := buildString(" [ERROR] ", arg)
-		fmt.Printf("%c[1;31m%s%c[0m\n", 0x1B, s, 0x1B)
-	}
+	s := buildString(" [ERROR] ", arg)
+	fmt.Printf("%c[1;31m%s%c[0m\n", 0x1B, s, 0x1B)
+}
+
+func Fatal(arg ...interface{}) {
+	s := buildString(" [FATAL] ", arg)
+	log.Fatalf("%c[1;31m%s%c[0m\n", 0x1B, s, 0x1B)
 }
 
 func buildString(level string, args []interface{}) string {
